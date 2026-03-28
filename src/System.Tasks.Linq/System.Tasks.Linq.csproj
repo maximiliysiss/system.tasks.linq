@@ -6,4 +6,24 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <Title>System.Tasks.Linq</Title>
+    <PackageTags>linq async task enumerable extensions</PackageTags>
+    <Description>LINQ extension methods for Task&lt;IEnumerable&lt;T&gt;&gt;. Chain async data-returning operations without intermediate await expressions — the full LINQ surface, lifted into task space.</Description>
+    <PackageProjectUrl>https://github.com/maximiliysiss/system.tasks.linq</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/maximiliysiss/system.tasks.linq</RepositoryUrl>
+    <PackageId>System.Tasks.Linq</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>maximiliysiss</Authors>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
 </Project>
