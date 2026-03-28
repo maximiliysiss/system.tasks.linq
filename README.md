@@ -5,7 +5,7 @@ LINQ extension methods for `Task<IEnumerable<T>>`. Chain async data-returning op
 ## Installation
 
 ```
-dotnet add package System.Tasks.Linq
+dotnet add package Itselves.Tasks.Linq
 ```
 
 ## Compatibility
