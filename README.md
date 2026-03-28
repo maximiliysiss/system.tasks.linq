@@ -19,8 +19,6 @@ Add the using and call LINQ methods directly on any `Task<IEnumerable<T>>`:
 ```csharp
 using System.Tasks.Linq.Extensions;
 
-IEnumerable<Order> GetActiveOrders() => ...;
-
 // Without System.Tasks.Linq
 var result = (await GetOrdersAsync()).Where(o => o.IsActive).Select(o => o.Total).Sum();
 
@@ -28,11 +26,35 @@ var result = (await GetOrdersAsync()).Where(o => o.IsActive).Select(o => o.Total
 var result = await GetOrdersAsync().Where(o => o.IsActive).Select(o => o.Total).Sum();
 ```
 
-The `await` moves to the end of the chain. Each method awaits the task internally, applies the standard LINQ operator, and returns a new `Task` for the next operator to consume.
+The `await` moves to the end of the chain. Each operator awaits the task internally, applies the standard LINQ operation, and returns a new `Task` for the next operator to consume.
+
+### Working with other collection types
+
+Methods returning `Task<List<T>>`, `Task<T[]>`, or any other collection type expose `AsEnumerable()` to widen to `Task<IEnumerable<T>>`, after which all LINQ operators are available:
+
+```csharp
+// Task<List<T>> from EF Core ToListAsync(), Task<T[]>, Task<IReadOnlyList<T>>, etc.
+var result = await GetOrdersAsync()   // Task<List<Order>>
+    .AsEnumerable()                   // Task<IEnumerable<Order>>
+    .Where(o => o.IsActive)
+    .Select(o => o.Total)
+    .Sum();
+```
+
+`AsEnumerable()` is provided for:
+
+| Type | Common source |
+|---|---|
+| `Task<IReadOnlyCollection<T>>` | Read-only APIs, domain models |
+| `Task<IReadOnlyList<T>>` | Read-only indexed APIs |
+| `Task<ICollection<T>>` | Mutable collection interfaces |
+| `Task<IList<T>>` | Mutable indexed interfaces |
+| `Task<List<T>>` | EF Core `ToListAsync()`, most ORMs |
+| `Task<T[]>` | `ToArrayAsync()`, fixed-size results |
 
 ## API reference
 
-All standard `System.Linq.Enumerable` operators are supported, organised by category.
+All standard `System.Linq.Enumerable` operators are available on `Task<IEnumerable<T>>`.
 
 ### Aggregation
 
@@ -151,8 +173,8 @@ Task<IEnumerable<T>> Union(second, comparer?)
 
 ```csharp
 Task<IEnumerable<T>>               AsEnumerable()
-Task<IEnumerable<TResult>>         Cast<TResult>()        // from Task<IEnumerable>
-Task<IEnumerable<TResult>>         OfType<TResult>()      // from Task<IEnumerable>
+Task<IEnumerable<TResult>>         Cast<TResult>()          // Task<IEnumerable> (non-generic source)
+Task<IEnumerable<TResult>>         OfType<TResult>()        // Task<IEnumerable> (non-generic source)
 Task<T[]>                          ToArray()
 Task<List<T>>                      ToList()
 Task<Dictionary<TKey, T>>          ToDictionary(keySelector, comparer?)
@@ -160,6 +182,8 @@ Task<Dictionary<TKey, TElement>>   ToDictionary(keySelector, elementSelector, co
 Task<ILookup<TKey, T>>             ToLookup(keySelector, comparer?)
 Task<ILookup<TKey, TElement>>      ToLookup(keySelector, elementSelector, comparer?)
 ```
+
+`Cast` and `OfType` are only available on `Task<IEnumerable>` (the non-generic interface) because they are type-changing operations that require an untyped source.
 
 ### Zip
 
@@ -181,10 +205,11 @@ var topSpenders = await dbContext.GetCustomersAsync()
     .ToList();
 ```
 
-**Aggregation**
+**Starting from a `Task<List<T>>`**
 
 ```csharp
-double average = await GetTransactionsAsync()
+double average = await repository.GetTransactionsAsync()  // Task<List<Transaction>>
+    .AsEnumerable()
     .Where(t => t.Date >= DateTime.Today.AddDays(-30))
     .Average(t => t.Amount);
 ```
@@ -198,7 +223,8 @@ var sorted = (await GetProductsAsync().OrderBy(p => p.Category))
 
 ## Behaviour notes
 
-- Every operator awaits the upstream task exactly once and then delegates directly to the corresponding `System.Linq.Enumerable` method. There is no buffering or side-effect beyond what standard LINQ does.
+- Every operator awaits the upstream `Task<IEnumerable<T>>` exactly once and delegates directly to the corresponding `System.Linq.Enumerable` method. There is no buffering or side-effect beyond what standard LINQ does.
+- Other collection types (`List<T>`, `T[]`, `IReadOnlyList<T>`, etc.) expose only `AsEnumerable()`, which upcasts to `Task<IEnumerable<T>>`. All LINQ logic lives in one place — there is no duplication across collection types.
 - Exceptions from the underlying task propagate normally when awaited.
 - Deferred LINQ operators (`Where`, `Select`, `SelectMany`, etc.) remain deferred — the selector/predicate runs when the result is enumerated, not when the task is awaited.
 - Operators that throw on invalid input (`First`, `Single`, `ElementAt`, `Aggregate` without seed on empty sequence, etc.) preserve the same exception semantics as their `Enumerable` counterparts.
