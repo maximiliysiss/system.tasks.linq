@@ -25,7 +25,7 @@ public static class GroupingExtensions
         this Task<IEnumerable<TSource>> task,
         Func<TSource, TKey> keySelector,
         IEqualityComparer<TKey>? comparer = null) =>
-        (await task).GroupBy(keySelector, comparer);
+        (await task.ConfigureAwait(false)).GroupBy(keySelector, comparer);
 
     /// <summary>
     /// Awaits the task and groups the elements of the resulting sequence according to key and element selector functions,
@@ -44,7 +44,7 @@ public static class GroupingExtensions
         Func<TSource, TKey> keySelector,
         Func<TSource, TElement> elementSelector,
         IEqualityComparer<TKey>? comparer = null) =>
-        (await task).GroupBy(keySelector, elementSelector, comparer);
+        (await task.ConfigureAwait(false)).GroupBy(keySelector, elementSelector, comparer);
 
     /// <summary>
     /// Awaits the task and groups the elements of the resulting sequence according to a key selector function
@@ -63,7 +63,7 @@ public static class GroupingExtensions
         Func<TSource, TKey> keySelector,
         Func<TKey, IEnumerable<TSource>, TResult> resultSelector,
         IEqualityComparer<TKey>? comparer = null) =>
-        (await task).GroupBy(keySelector, resultSelector, comparer);
+        (await task.ConfigureAwait(false)).GroupBy(keySelector, resultSelector, comparer);
 
     /// <summary>
     /// Awaits the task and groups the elements of the resulting sequence according to key and element selector functions,
@@ -85,7 +85,7 @@ public static class GroupingExtensions
         Func<TSource, TElement> elementSelector,
         Func<TKey, IEnumerable<TElement>, TResult> resultSelector,
         IEqualityComparer<TKey>? comparer = null) =>
-        (await task).GroupBy(keySelector, elementSelector, resultSelector, comparer);
+        (await task.ConfigureAwait(false)).GroupBy(keySelector, elementSelector, resultSelector, comparer);
 
     /// <summary>
     /// Awaits the task and correlates the elements of the resulting outer sequence with elements
@@ -110,7 +110,7 @@ public static class GroupingExtensions
         Func<TInner, TKey> innerKeySelector,
         Func<TOuter, IEnumerable<TInner>, TResult> resultSelector,
         IEqualityComparer<TKey>? comparer = null) =>
-        (await task).GroupJoin(inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+        (await task.ConfigureAwait(false)).GroupJoin(inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
     /// <summary>
     /// Awaits the task and correlates the elements of the resulting outer sequence with elements
@@ -134,5 +134,5 @@ public static class GroupingExtensions
         Func<TInner, TKey> innerKeySelector,
         Func<TOuter, TInner, TResult> resultSelector,
         IEqualityComparer<TKey>? comparer = null) =>
-        (await task).Join(inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+        (await task.ConfigureAwait(false)).Join(inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 }

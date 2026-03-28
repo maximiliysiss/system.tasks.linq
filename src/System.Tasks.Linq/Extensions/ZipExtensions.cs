@@ -25,5 +25,5 @@ public static class ZipExtensions
         this Task<IEnumerable<TFirst>> task,
         IEnumerable<TSecond> second,
         Func<TFirst, TSecond, TResult> resultSelector) =>
-        (await task).Zip(second, resultSelector);
+        (await task.ConfigureAwait(false)).Zip(second, resultSelector);
 }

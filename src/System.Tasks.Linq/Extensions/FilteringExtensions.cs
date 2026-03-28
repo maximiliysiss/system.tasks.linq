@@ -20,7 +20,7 @@ public static class FilteringExtensions
     /// <returns>A task that represents <see langword="true"/> if every element passes the test; otherwise <see langword="false"/>.</returns>
     public static async Task<bool> All<TSource>(
         this Task<IEnumerable<TSource>> task,
-        Func<TSource, bool> predicate) => (await task).All(predicate);
+        Func<TSource, bool> predicate) => (await task.ConfigureAwait(false)).All(predicate);
 
     /// <summary>
     /// Awaits the task and determines whether the resulting sequence contains any elements.
@@ -29,7 +29,7 @@ public static class FilteringExtensions
     /// <param name="task">A task whose result is the source sequence.</param>
     /// <returns>A task that represents <see langword="true"/> if the sequence contains any elements; otherwise <see langword="false"/>.</returns>
     public static async Task<bool> Any<TSource>(this Task<IEnumerable<TSource>> task) =>
-        (await task).Any();
+        (await task.ConfigureAwait(false)).Any();
 
     /// <summary>
     /// Awaits the task and determines whether any element of the resulting sequence satisfies the predicate.
@@ -40,7 +40,7 @@ public static class FilteringExtensions
     /// <returns>A task that represents <see langword="true"/> if any element passes the test; otherwise <see langword="false"/>.</returns>
     public static async Task<bool> Any<TSource>(
         this Task<IEnumerable<TSource>> task,
-        Func<TSource, bool> predicate) => (await task).Any(predicate);
+        Func<TSource, bool> predicate) => (await task.ConfigureAwait(false)).Any(predicate);
 
     /// <summary>
     /// Awaits the task and determines whether the resulting sequence contains the specified value,
@@ -55,7 +55,7 @@ public static class FilteringExtensions
         this Task<IEnumerable<TSource>> task,
         TSource value,
         IEqualityComparer<TSource>? comparer = null) =>
-        (await task).Contains(value, comparer);
+        (await task.ConfigureAwait(false)).Contains(value, comparer);
 
     /// <summary>
     /// Awaits the task and determines whether the resulting sequence is equal to a second sequence
@@ -70,7 +70,7 @@ public static class FilteringExtensions
         this Task<IEnumerable<TSource>> task,
         IEnumerable<TSource> second,
         IEqualityComparer<TSource>? comparer = null) =>
-        (await task).SequenceEqual(second, comparer);
+        (await task.ConfigureAwait(false)).SequenceEqual(second, comparer);
 
     /// <summary>
     /// Awaits the task and filters the elements of the resulting sequence based on a predicate.
@@ -81,7 +81,7 @@ public static class FilteringExtensions
     /// <returns>A task that represents a sequence containing only the elements that satisfy the predicate.</returns>
     public static async Task<IEnumerable<TSource>> Where<TSource>(
         this Task<IEnumerable<TSource>> task,
-        Func<TSource, bool> predicate) => (await task).Where(predicate);
+        Func<TSource, bool> predicate) => (await task.ConfigureAwait(false)).Where(predicate);
 
     /// <summary>
     /// Awaits the task and filters the elements of the resulting sequence based on a predicate
@@ -93,5 +93,5 @@ public static class FilteringExtensions
     /// <returns>A task that represents a sequence containing only the elements that satisfy the predicate.</returns>
     public static async Task<IEnumerable<TSource>> Where<TSource>(
         this Task<IEnumerable<TSource>> task,
-        Func<TSource, int, bool> predicate) => (await task).Where(predicate);
+        Func<TSource, int, bool> predicate) => (await task.ConfigureAwait(false)).Where(predicate);
 }

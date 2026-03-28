@@ -21,7 +21,7 @@ public static class ProjectionExtensions
     /// <returns>A task that represents a sequence of projected elements.</returns>
     public static async Task<IEnumerable<TResult>> Select<TSource, TResult>(
         this Task<IEnumerable<TSource>> task,
-        Func<TSource, TResult> selector) => (await task).Select(selector);
+        Func<TSource, TResult> selector) => (await task.ConfigureAwait(false)).Select(selector);
 
     /// <summary>
     /// Awaits the task and projects each element of the resulting sequence into a new form
@@ -34,7 +34,7 @@ public static class ProjectionExtensions
     /// <returns>A task that represents a sequence of projected elements.</returns>
     public static async Task<IEnumerable<TResult>> Select<TSource, TResult>(
         this Task<IEnumerable<TSource>> task,
-        Func<TSource, int, TResult> selector) => (await task).Select(selector);
+        Func<TSource, int, TResult> selector) => (await task.ConfigureAwait(false)).Select(selector);
 
     /// <summary>
     /// Awaits the task and projects each element of the resulting sequence to an <see cref="IEnumerable{TResult}"/>
@@ -47,7 +47,7 @@ public static class ProjectionExtensions
     /// <returns>A task that represents a flattened sequence of projected elements.</returns>
     public static async Task<IEnumerable<TResult>> SelectMany<TSource, TResult>(
         this Task<IEnumerable<TSource>> task,
-        Func<TSource, IEnumerable<TResult>> selector) => (await task).SelectMany(selector);
+        Func<TSource, IEnumerable<TResult>> selector) => (await task.ConfigureAwait(false)).SelectMany(selector);
 
     /// <summary>
     /// Awaits the task and projects each element of the resulting sequence to an <see cref="IEnumerable{TResult}"/>
@@ -60,7 +60,7 @@ public static class ProjectionExtensions
     /// <returns>A task that represents a flattened sequence of projected elements.</returns>
     public static async Task<IEnumerable<TResult>> SelectMany<TSource, TResult>(
         this Task<IEnumerable<TSource>> task,
-        Func<TSource, int, IEnumerable<TResult>> selector) => (await task).SelectMany(selector);
+        Func<TSource, int, IEnumerable<TResult>> selector) => (await task.ConfigureAwait(false)).SelectMany(selector);
 
     /// <summary>
     /// Awaits the task and projects each element of the resulting sequence to an intermediate collection,
@@ -77,7 +77,7 @@ public static class ProjectionExtensions
         this Task<IEnumerable<TSource>> task,
         Func<TSource, IEnumerable<TCollection>> collectionSelector,
         Func<TSource, TCollection, TResult> resultSelector) =>
-        (await task).SelectMany(collectionSelector, resultSelector);
+        (await task.ConfigureAwait(false)).SelectMany(collectionSelector, resultSelector);
 
     /// <summary>
     /// Awaits the task and projects each element of the resulting sequence to an intermediate collection
@@ -94,5 +94,5 @@ public static class ProjectionExtensions
         this Task<IEnumerable<TSource>> task,
         Func<TSource, int, IEnumerable<TCollection>> collectionSelector,
         Func<TSource, TCollection, TResult> resultSelector) =>
-        (await task).SelectMany(collectionSelector, resultSelector);
+        (await task.ConfigureAwait(false)).SelectMany(collectionSelector, resultSelector);
 }

@@ -16,5 +16,5 @@ public static class ArrayExtensions
     /// <param name="task">A task whose result is the source sequence.</param>
     /// <returns>A task that represents the source array typed as <see cref="IEnumerable{TSource}"/>.</returns>
     public static async Task<IEnumerable<TSource>> AsEnumerable<TSource>(this Task<TSource[]> task) =>
-        await task;
+        await task.ConfigureAwait(false);
 }

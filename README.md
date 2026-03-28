@@ -127,10 +127,12 @@ Task<T?> SingleOrDefault(predicate)
 ```csharp
 Task<IOrderedEnumerable<T>> OrderBy(keySelector, comparer?)
 Task<IOrderedEnumerable<T>> OrderByDescending(keySelector, comparer?)
+Task<IOrderedEnumerable<T>> ThenBy(keySelector, comparer?)
+Task<IOrderedEnumerable<T>> ThenByDescending(keySelector, comparer?)
 Task<IEnumerable<T>>        Reverse()
 ```
 
-`OrderBy` and `OrderByDescending` return `IOrderedEnumerable<T>`, so `.ThenBy()` / `.ThenByDescending()` work normally after awaiting.
+`ThenBy` and `ThenByDescending` extend `Task<IOrderedEnumerable<T>>`, so multi-key sorting chains stay fully async without a mid-chain `await`.
 
 ### Partitioning
 
@@ -217,8 +219,10 @@ double average = await repository.GetTransactionsAsync()  // Task<List<Transacti
 **Chaining OrderBy with ThenBy**
 
 ```csharp
-var sorted = (await GetProductsAsync().OrderBy(p => p.Category))
-    .ThenBy(p => p.Name);
+var sorted = await GetProductsAsync()
+    .OrderBy(p => p.Category)
+    .ThenBy(p => p.Name)
+    .ToList();
 ```
 
 ## Behaviour notes

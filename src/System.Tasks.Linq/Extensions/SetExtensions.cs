@@ -20,7 +20,7 @@ public static class SetExtensions
     /// <returns>A task that represents a sequence that contains the elements of both sequences.</returns>
     public static async Task<IEnumerable<TSource>> Concat<TSource>(
         this Task<IEnumerable<TSource>> task,
-        IEnumerable<TSource> second) => (await task).Concat(second);
+        IEnumerable<TSource> second) => (await task.ConfigureAwait(false)).Concat(second);
 
     /// <summary>
     /// Awaits the task and returns distinct elements from the resulting sequence,
@@ -33,7 +33,7 @@ public static class SetExtensions
     public static async Task<IEnumerable<TSource>> Distinct<TSource>(
         this Task<IEnumerable<TSource>> task,
         IEqualityComparer<TSource>? comparer = null) =>
-        (await task).Distinct(comparer);
+        (await task.ConfigureAwait(false)).Distinct(comparer);
 
     /// <summary>
     /// Awaits the task and produces the set difference of the resulting sequence and a second sequence,
@@ -48,7 +48,7 @@ public static class SetExtensions
         this Task<IEnumerable<TSource>> task,
         IEnumerable<TSource> second,
         IEqualityComparer<TSource>? comparer = null) =>
-        (await task).Except(second, comparer);
+        (await task.ConfigureAwait(false)).Except(second, comparer);
 
     /// <summary>
     /// Awaits the task and produces the set intersection of the resulting sequence and a second sequence,
@@ -63,7 +63,7 @@ public static class SetExtensions
         this Task<IEnumerable<TSource>> task,
         IEnumerable<TSource> second,
         IEqualityComparer<TSource>? comparer = null) =>
-        (await task).Intersect(second, comparer);
+        (await task.ConfigureAwait(false)).Intersect(second, comparer);
 
     /// <summary>
     /// Awaits the task and produces the set union of the resulting sequence and a second sequence,
@@ -78,5 +78,5 @@ public static class SetExtensions
         this Task<IEnumerable<TSource>> task,
         IEnumerable<TSource> second,
         IEqualityComparer<TSource>? comparer = null) =>
-        (await task).Union(second, comparer);
+        (await task.ConfigureAwait(false)).Union(second, comparer);
 }
