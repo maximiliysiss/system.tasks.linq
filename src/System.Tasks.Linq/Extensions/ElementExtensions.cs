@@ -4,6 +4,12 @@ using System.Threading.Tasks;
 
 namespace System.Tasks.Linq.Extensions;
 
+/// <summary>
+/// Provides extension methods for <c>Task&lt;IEnumerable&lt;T&gt;&gt;</c> that correspond to the
+/// element-access operators in <see cref="System.Linq.Enumerable"/>:
+/// <c>ElementAt</c>, <c>ElementAtOrDefault</c>, <c>First</c>, <c>FirstOrDefault</c>,
+/// <c>Last</c>, <c>LastOrDefault</c>, <c>Single</c>, and <c>SingleOrDefault</c>.
+/// </summary>
 public static class ElementExtensions
 {
     /// <summary>

@@ -4,6 +4,12 @@ using System.Threading.Tasks;
 
 namespace System.Tasks.Linq.Extensions;
 
+/// <summary>
+/// Provides extension methods for <c>Task&lt;IEnumerable&lt;T&gt;&gt;</c> that correspond to the
+/// partitioning operators in <see cref="System.Linq.Enumerable"/>:
+/// <c>Append</c>, <c>DefaultIfEmpty</c>, <c>Prepend</c>, <c>Skip</c>, <c>SkipWhile</c>,
+/// <c>Take</c>, and <c>TakeWhile</c>.
+/// </summary>
 public static class PartitioningExtensions
 {
     /// <summary>

@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 
 namespace System.Tasks.Linq.Extensions;
 
+/// <summary>
+/// Provides <c>AsEnumerable</c> for <c>Task&lt;ICollection&lt;T&gt;&gt;</c>, widening it to
+/// <c>Task&lt;IEnumerable&lt;T&gt;&gt;</c> so that all LINQ extension methods become available.
+/// </summary>
 public static class CollectionExtensions
 {
     /// <summary>

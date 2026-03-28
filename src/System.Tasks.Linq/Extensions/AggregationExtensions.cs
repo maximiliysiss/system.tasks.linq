@@ -4,6 +4,11 @@ using System.Threading.Tasks;
 
 namespace System.Tasks.Linq.Extensions;
 
+/// <summary>
+/// Provides extension methods for <c>Task&lt;IEnumerable&lt;T&gt;&gt;</c> that correspond to the
+/// aggregation operators in <see cref="System.Linq.Enumerable"/>:
+/// <c>Aggregate</c>, <c>Average</c>, <c>Count</c>, <c>LongCount</c>, <c>Max</c>, <c>Min</c>, and <c>Sum</c>.
+/// </summary>
 public static class AggregationExtensions
 {
     /// <summary>

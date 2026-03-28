@@ -4,6 +4,11 @@ using System.Threading.Tasks;
 
 namespace System.Tasks.Linq.Extensions;
 
+/// <summary>
+/// Provides extension methods for <c>Task&lt;IEnumerable&lt;T&gt;&gt;</c> that correspond to the
+/// grouping and join operators in <see cref="System.Linq.Enumerable"/>:
+/// <c>GroupBy</c>, <c>GroupJoin</c>, and <c>Join</c>.
+/// </summary>
 public static class GroupingExtensions
 {
     /// <summary>

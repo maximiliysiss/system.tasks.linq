@@ -4,6 +4,11 @@ using System.Threading.Tasks;
 
 namespace System.Tasks.Linq.Extensions;
 
+/// <summary>
+/// Provides extension methods for <c>Task&lt;IEnumerable&lt;T&gt;&gt;</c> that correspond to the
+/// ordering operators in <see cref="System.Linq.Enumerable"/>:
+/// <c>OrderBy</c>, <c>OrderByDescending</c>, and <c>Reverse</c>.
+/// </summary>
 public static class OrderingExtensions
 {
     /// <summary>

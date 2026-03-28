@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace System.Tasks.Linq.Extensions;
 
+/// <summary>
+/// Provides extension methods for <c>Task&lt;IEnumerable&lt;T&gt;&gt;</c> that correspond to the
+/// conversion operators in <see cref="System.Linq.Enumerable"/>:
+/// <c>AsEnumerable</c>, <c>Cast</c>, <c>OfType</c>, <c>ToArray</c>, <c>ToDictionary</c>, <c>ToList</c>, and <c>ToLookup</c>.
+/// </summary>
 public static class ConversionExtensions
 {
     /// <summary>

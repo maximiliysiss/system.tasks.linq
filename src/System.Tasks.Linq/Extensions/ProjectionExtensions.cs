@@ -4,6 +4,11 @@ using System.Threading.Tasks;
 
 namespace System.Tasks.Linq.Extensions;
 
+/// <summary>
+/// Provides extension methods for <c>Task&lt;IEnumerable&lt;T&gt;&gt;</c> that correspond to the
+/// projection operators in <see cref="System.Linq.Enumerable"/>:
+/// <c>Select</c> and <c>SelectMany</c>.
+/// </summary>
 public static class ProjectionExtensions
 {
     /// <summary>
