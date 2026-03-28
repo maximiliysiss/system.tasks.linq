@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F583DFFD-1DDF-4915-B824-20636477AA2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{6149FFFB-E179-46CC-BBC1-DDB874134018}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AC46D046-00B6-4153-A285-B8560AA52351}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Tasks.Linq", "src\System.Tasks.Linq\System.Tasks.Linq.csproj", "{18D47B28-9711-4F21-A313-D682D4B8440B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Tasks.Linq.UnitTests", "tests\System.Tasks.Linq.UnitTests\System.Tasks.Linq.UnitTests.csproj", "{D70E8480-33B0-427D-A952-63E5DB994FD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{18D47B28-9711-4F21-A313-D682D4B8440B} = {F583DFFD-1DDF-4915-B824-20636477AA2F}
+		{D70E8480-33B0-427D-A952-63E5DB994FD5} = {AC46D046-00B6-4153-A285-B8560AA52351}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18D47B28-9711-4F21-A313-D682D4B8440B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18D47B28-9711-4F21-A313-D682D4B8440B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18D47B28-9711-4F21-A313-D682D4B8440B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18D47B28-9711-4F21-A313-D682D4B8440B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D70E8480-33B0-427D-A952-63E5DB994FD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70E8480-33B0-427D-A952-63E5DB994FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70E8480-33B0-427D-A952-63E5DB994FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70E8480-33B0-427D-A952-63E5DB994FD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
